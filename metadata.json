@@ -1,0 +1,14 @@
+{
+  "name": "tykeal-clm",
+  "version": "0.1.0",
+  "author": "tykeal",
+  "summary": "Puppet module for Sonatype CLM",
+  "license": "Apache-2.0",
+  "source": "https://github.com/tykeal/puppet-clm.git",
+  "project_page": "https://github.com/tykeal/puppet-clm",
+  "issues_url": "https://github.com/tykeal/puppet-clm/issues",
+  "dependencies": [
+    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  ]
+}
+
