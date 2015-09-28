@@ -1,5 +1,7 @@
 # clm
 
+[![Build Status](https://travis-ci.org/tykeal/puppet-clm.png)](https://travis-ci.org/tykeal/puppet-clm)
+
 #### Table of Contents
 
 1. [Overview](#overview)
