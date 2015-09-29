@@ -27,7 +27,6 @@ class clm::config (
   $clm_config,
   $clm_group,
   $clm_user,
-  $clm_user_home,
 ) {
   # since we aren't using assert_private because of not knowing how to
   # test using rspec when it's set we need to be extra paranoid and
@@ -35,5 +34,12 @@ class clm::config (
   validate_hash($clm_config)
   validate_string($clm_group)
   validate_string($clm_user)
-  validate_absolute_path($clm_user_home)
+
+  file { '/etc/clm-config.yml':
+    ensure  => file,
+    owner   => $clm_user,
+    group   => $clm_group,
+    mode    => '0600',
+    content => template('clm/config.yml.erb'),
+  }
 }

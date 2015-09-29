@@ -109,10 +109,9 @@ class clm (
   }
 
   class { 'clm::config':
-    clm_config    => $real_config,
-    clm_group     => $clm_group,
-    clm_user      => $clm_user,
-    clm_user_home => $clm_user_home,
+    clm_config => $real_config,
+    clm_group  => $clm_group,
+    clm_user   => $clm_user,
   }
 
   class { 'clm::service':
