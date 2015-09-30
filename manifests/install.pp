@@ -29,6 +29,8 @@ class clm::install (
   $clm_user,
   $clm_user_home,
   $download_site,
+  $log_dir,
+  $manage_log_dir,
   $revision,
   $version,
   $work_dir_manage,
@@ -42,6 +44,8 @@ class clm::install (
   validate_string($clm_user)
   validate_absolute_path($clm_user_home)
   validate_string($download_site)
+  validate_absolute_path($log_dir)
+  validate_bool($manage_log_dir)
   validate_re($revision, '^\d+$')
   validate_re($version, '^\d+\.\d+\.\d+$')
   validate_bool($work_dir_manage)
@@ -97,6 +101,16 @@ class clm::install (
       group   => $clm_group,
       recurse => $work_dir_recurse,
       require => Exec['clm-untar'],
+    }
+  }
+
+  if ($manage_log_dir) {
+    file { 'clm-server-log':
+      ensure => directory,
+      target => $log_dir,
+      owner  => $clm_user,
+      group  => $clm_group,
+      mode   => '0700',
     }
   }
 }

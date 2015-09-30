@@ -50,6 +50,18 @@
 #   Type: string
 #   Default: -Xmx1024m -XX:MaxPermSize=128m
 #
+# * `log_dir`
+#   The default log location
+#
+#   Type: absolute path (string)
+#   Default: /var/log/clm-server
+#
+# * `manage_log_dir`
+#   Should the module create the log dir
+#
+#   Type: boolean
+#   Default: true
+#
 # * `manage_user`
 #   If the module should be creating the user and group.
 #
@@ -119,6 +131,8 @@ class clm::params {
   $clm_manage_user_home = true
   $download_site        = 'http://download.sonatype.com/clm/server'
   $java_opts            = '-Xmx1024m -XX:MaxPermSize=128m'
+  $log_dir              = '/var/log/clm-server'
+  $manage_log_dir       = true
   $manage_user          = true
 
   # Current version as of the original module creation

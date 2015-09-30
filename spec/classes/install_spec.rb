@@ -11,6 +11,8 @@ describe 'clm::install', :type => :class do
       'clm_user'         => 'foo',
       'clm_user_home'    => '/opt/foo',
       'download_site'    => 'http://downloadtest.com',
+      'log_dir'          => '/var/log/clm-server',
+      'manage_log_dir'   => true,
       'revision'         => '01',
       'version'          => '1.1.1',
       'work_dir_manage'  => true,
@@ -81,6 +83,20 @@ describe 'clm::install', :type => :class do
       params.merge!({'work_dir_manage' => false})
 
       should_not contain_file('/foo/bar')
+    end
+
+    it { should contain_file('clm-server-log').with(
+      'ensure' => 'directory',
+      'target' => '/var/log/clm-server',
+      'owner'  => 'foo',
+      'group'  => 'foo',
+      'mode'   => '0700',
+    ) }
+
+    it 'should not contian /var/log/clm-server if manage_log_dir is false' do
+      params.merge!({'manage_log_dir' => false})
+
+      should_not contain_file('clm-server-log')
     end
   end
 end

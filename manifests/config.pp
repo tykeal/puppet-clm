@@ -38,6 +38,10 @@ class clm::config (
   validate_hash($clm_config)
   validate_string($clm_group)
   validate_string($clm_user)
+  validate_absolute_path($clm_user_home)
+  validate_string($java_opts)
+  validate_re($revision, '^\d+$')
+  validate_re($version, '^\d+\.\d+\.\d+$')
 
   file { '/etc/clm-config.yml':
     ensure  => file,

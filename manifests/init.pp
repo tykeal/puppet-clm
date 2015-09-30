@@ -67,6 +67,18 @@
 #   Type: string
 #   Default: -Xmx1024m -XX:MaxPermSize=128m
 #
+# * `log_dir`
+#   The default log location
+#
+#   Type: absolute path (string)
+#   Default: /var/log/clm-server
+#
+# * `manage_log_dir`
+#   Should the module create the log dir
+#
+#   Type: boolean
+#   Default: true
+#
 # * `manage_user`
 #   If the module should be creating the user and group.
 #
@@ -159,6 +171,8 @@ class clm (
   $clm_manage_user_home      = $clm::params::clm_manage_user_home,
   $download_site             = $clm::params::download_site,
   $java_opts                 = $clm::params::java_opts,
+  $log_dir                   = $clm::params::log_dir,
+  $manage_log_dir            = $clm::params::manage_log_dir,
   $manage_user               = $clm::params::manage_user,
   $merge_with_default_config = $clm::params::merge_with_default_config,
   $revision                  = $clm::params::revision,
@@ -173,6 +187,8 @@ class clm (
   validate_bool($clm_manage_user_home)
   validate_string($download_site)
   validate_string($java_opts)
+  validate_absolute_path($log_dir)
+  validate_bool($manage_log_dir)
   validate_bool($manage_user)
   validate_bool($merge_with_default_config)
   validate_re($revision, '^\d+$')
@@ -213,6 +229,8 @@ class clm (
     clm_user         => $clm_user,
     clm_user_home    => $clm_user_home,
     download_site    => $download_site,
+    log_dir          => $log_dir,
+    manage_log_dir   => $manage_log_dir,
     revision         => $revision,
     version          => $version,
     work_dir_manage  => $work_dir_manage,
