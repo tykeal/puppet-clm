@@ -11,7 +11,96 @@
 # Variables
 # ----------
 #
-# None
+# * `clm_group`
+#   The user group that the clm-server will be running as
+#
+#   Type: string
+#   Default: clm-server
+#
+# * `clm_user`
+#   The user that the clm-server will be running as
+#
+#   Type: string
+#   Default: clm-server
+#
+# * `clm_user_home`
+#   The home directory for clm-server to utilize
+#
+#   Type: absolute path (string)
+#   Default: /opt/clm-server
+#
+# * `clm_manage_user_home`
+#   If the module should be setting managehome on the user object. That
+#   is, should the user object be informing puppet to create the home
+#   directory if it does not exist and set permissions appropriately
+#
+#   Type: boolean
+#   Default: true
+#
+# * `download_site`
+#   The base URL that should be used for downloading clm-server
+#
+#   Type: string
+#   Default: http://download.sonatype.com/clm/server
+#
+# * `java_opts`
+#   The options that will be passed into Java when clm-server is being
+#   started
+#
+#   Type: string
+#   Default: -Xmx1024m -XX:MaxPermSize=128m
+#
+# * `manage_user`
+#   If the module should be creating the user and group.
+#
+#   Type: boolean
+#   Default: true
+#
+# * `revision`
+#   The two revision string used by Sonatype in their releases
+#
+#   Type: string matching the regex /^\d+$/
+#   Default: 02
+#   NOTE: The default is 02 as the current version of clm-server that is
+#   out at the time of module creation is at revision 02
+#
+# * `version`
+#   The version string used by Sonatype in their releases
+#
+#   Type: string matching the regex /^\d+\.\d+\.\d+$/
+#   Default: 1.16.0
+#   NOTE: The default is 1.16.0 as the current version of clm-server
+#   that is out at the time of module creation is at version 1.16.0
+#
+# * `work_dir_manage`
+#   Should the module manage / create the workdir
+#
+#   Type: boolean
+#   Default: true
+#
+# * `work_dir_recurse`
+#   If work_dir_manage should the ownership settings be recursively set
+#   down the tree. You may, or may not desire this
+#
+#   Type: boolean
+#   Default: true
+#
+# * `merge_with_default_config`
+#   Should the clm_config that is passed to the module be merged with
+#   what the this params class declares as the defaults?
+#
+#   Type: boolean
+#   Default: true
+#
+# * `clm_default_config`
+#   A configuration hash detailing the defaults configuration that will
+#   be put into the config.yml that clm-server uses. This module
+#   creates the configuration file as /etc/clm-config.yml and this hash
+#   is the defaults as appropriate based upon the how this module is
+#   designed and what version 1.16.0-02 of clm-server uses
+#
+#   Type: hash
+#   Default: see definition
 #
 # Authors
 # -------
