@@ -29,6 +29,7 @@ class clm::params {
   $clm_user_home        = '/opt/clm-server'
   $clm_manage_user_home = true
   $download_site        = 'http://download.sonatype.com/clm/server'
+  $java_opts            = '-Xmx1024m -XX:MaxPermSize=128m'
   $manage_user          = true
 
   # Current version as of the original module creation

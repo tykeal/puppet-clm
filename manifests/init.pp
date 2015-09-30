@@ -49,6 +49,7 @@ class clm (
   $clm_user_home             = $clm::params::clm_user_home,
   $clm_manage_user_home      = $clm::params::clm_manage_user_home,
   $download_site             = $clm::params::download_site,
+  $java_opts                 = $clm::params::java_opts,
   $manage_user               = $clm::params::manage_user,
   $merge_with_default_config = $clm::params::merge_with_default_config,
   $revision                  = $clm::params::revision,
@@ -62,6 +63,7 @@ class clm (
   validate_absolute_path($clm_user_home)
   validate_bool($clm_manage_user_home)
   validate_string($download_site)
+  validate_string($java_opts)
   validate_bool($manage_user)
   validate_bool($merge_with_default_config)
   validate_re($revision, '^\d+$')
@@ -109,9 +111,13 @@ class clm (
   }
 
   class { 'clm::config':
-    clm_config => $real_config,
-    clm_group  => $clm_group,
-    clm_user   => $clm_user,
+    clm_config    => $real_config,
+    clm_group     => $clm_group,
+    clm_user      => $clm_user,
+    clm_user_home => $clm_user_home,
+    java_opts     => $java_opts,
+    revision      => $revision,
+    version       => $version,
   }
 
   class { 'clm::service':

@@ -17,6 +17,10 @@ describe 'clm::config', :type => :class do
       },
       'clm_group'      => 'foo',
       'clm_user'       => 'foo',
+      'clm_user_home'  => '/opt/foo',
+      'java_opts'      => 'java_args',
+      'revision'       => '01',
+      'version'        => '1.1.1',
     }
   }
 
@@ -50,6 +54,17 @@ test4:
 - array2
 
 ',
+    ) }
+
+    it { should contain_file('/etc/sysconfig/clm-server').with(
+      'ensure'  => 'file',
+      'owner'   => 'root',
+      'group'   => 'root',
+      'mode'    => '0644',
+      'content' => "# WARNING THIS FILE IS MANAGED BY PUPPET
+JAVA_OPTIONS='java_args'
+CLM_JAR=/opt/foo/clm-server/sonatype-clm-server-1.1.1-01.jar
+",
     ) }
   end
 end

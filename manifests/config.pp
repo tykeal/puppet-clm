@@ -27,6 +27,10 @@ class clm::config (
   $clm_config,
   $clm_group,
   $clm_user,
+  $clm_user_home,
+  $java_opts,
+  $revision,
+  $version,
 ) {
   # since we aren't using assert_private because of not knowing how to
   # test using rspec when it's set we need to be extra paranoid and
@@ -40,6 +44,14 @@ class clm::config (
     owner   => $clm_user,
     group   => $clm_group,
     mode    => '0600',
-    content => template('clm/config.yml.erb'),
+    content => template("${module_name}/config.yml.erb"),
+  }
+
+  file { '/etc/sysconfig/clm-server':
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template("${module_name}/clm-server.sysconfig.erb")
   }
 }
