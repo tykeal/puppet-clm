@@ -121,6 +121,9 @@ class clm (
   }
 
   class { 'clm::service':
+    clm_group     => $clm_group,
+    clm_user      => $clm_user,
+    clm_user_home => $clm_user_home,
   }
 
   Anchor['clm::begin'] ->

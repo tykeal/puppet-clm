@@ -1,0 +1,11 @@
+# WARNING THIS FILE IS MANAGED BY PUPPET
+[Unit]
+Description=Sonatype CLM Server
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/clm-server
+ExecStart=/usr/bin/java $JAVA_OPTIONS -jar $CLM_JAR server /etc/clm-config.yml
+
+[Install]
+WantedBy=multi-user.target
