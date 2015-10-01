@@ -164,18 +164,16 @@ class clm::params {
       },
     },
     # lint:ignore:80chars
-    'logging'                                                              => {
-      'level'                                                              => 'DEBUG',
-      'loggers'                                                            => {
-        'com.sonatype.insight.scan'                                        => 'INFO',
-        # lint:ignore:2sp_soft_tabs
-         'eu.medsea.mimeutil.MimeUtil2'                                    => 'INFO',
-         'org.apache.http'                                                 => 'INFO',
-         'org.apache.http.wire'                                            => 'ERROR',
-         'org.eclipse.birt.report.engine.layout.pdf.font.FontConfigReader' => 'WARN',
-         'org.eclipse.jetty'                                               => 'INFO',
-         'org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter' => 'INFO',
-        # lint:endignore
+    'logging'                                                             => {
+      'level'                                                             => 'DEBUG',
+      'loggers'                                                           => {
+        'com.sonatype.insight.scan'                                       => 'INFO',
+        'eu.medsea.mimeutil.MimeUtil2'                                    => 'INFO',
+        'org.apache.http'                                                 => 'INFO',
+        'org.apache.http.wire'                                            => 'ERROR',
+        'org.eclipse.birt.report.engine.layout.pdf.font.FontConfigReader' => 'WARN',
+        'org.eclipse.jetty'                                               => 'INFO',
+        'org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter' => 'INFO',
       },
       'console'     => {
         'enabled'   => true,
