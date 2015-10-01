@@ -71,101 +71,118 @@ class profile::clm {
    default) then an option of sonatypeWork *must* exist in the hash as an
    absolute path
 
-   *Type*: hash
-   *Default*: {}
+   **Type**: hash
+
+   **Default**: {}
 
  * `clm_group`
    The user group that the clm-server will be running as
 
-   *Type*: string
-   *Default*: clm-server
+   **Type**: string
+
+   **Default**: clm-server
 
  * `clm_user`
    The user that the clm-server will be running as
 
-   *Type*: string
-   *Default*: clm-server
+   **Type**: string
+
+   **Default**: clm-server
 
  * `clm_user_home`
    The home directory for clm-server to utilize
 
-   *Type*: absolute path (string)
-   *Default*: /opt/clm-server
+   **Type**: absolute path (string)
+
+   **Default**: /opt/clm-server
 
  * `clm_manage_user_home`
    If the module should be setting managehome on the user object. That
    is, should the user object be informing puppet to create the home
    directory if it does not exist and set permissions appropriately
 
-   *Type*: boolean
-   *Default*: true
+   **Type**: boolean
+
+   **Default**: true
 
  * `download_site`
    The base URL that should be used for downloading clm-server
 
-   *Type*: string
-   *Default*: http://download.sonatype.com/clm/server
+   **Type**: string
+
+   **Default**: http://download.sonatype.com/clm/server
 
  * `java_opts`
    The options that will be passed into Java when clm-server is being
    started
 
-   *Type*: string
-   *Default*: -Xmx1024m -XX:MaxPermSize=128m
+   **Type**: string
+
+   **Default**: -Xmx1024m -XX:MaxPermSize=128m
 
  * `log_dir`
    The default log location
 
-   *Type*: absolute path (string)
-   *Default*: /var/log/clm-server
+   **Type**: absolute path (string)
+
+   **Default**: /var/log/clm-server
 
  * `manage_log_dir`
    Should the module create the log dir
 
-   *Type*: boolean
-   *Default*: true
+   **Type**: boolean
+
+   **Default**: true
 
  * `manage_user`
    If the module should be creating the user and group.
 
-   *Type*: boolean
-   *Default*: true
+   **Type**: boolean
+
+   **Default**: true
 
  * `revision`
    The two revision string used by Sonatype in their releases
 
-   *Type*: string matching the regex /^\d+$/
-   *Default*: 02
-   *NOTE*: The default is 02 as the current version of clm-server that is
+   **Type**: string matching the regex /^\d+$/
+
+   **Default**: 02
+
+   **NOTE**: The default is 02 as the current version of clm-server that is
    out at the time of module creation is at revision 02
 
  * `version`
    The version string used by Sonatype in their releases
 
-   *Type*: string matching the regex /^\d+\.\d+\.\d+$/
-   *Default*: 1.16.0
-   *NOTE*: The default is 1.16.0 as the current version of clm-server
+   **Type**: string matching the regex /^\d+\.\d+\.\d+$/
+
+   **Default**: 1.16.0
+
+   **NOTE**: The default is 1.16.0 as the current version of clm-server
    that is out at the time of module creation is at version 1.16.0
 
  * `work_dir_manage`
    Should the module manage / create the workdir
 
-   *Type*: boolean
-   *Default*: true
+   **Type**: boolean
+
+   **Default**: true
 
  * `work_dir_recurse`
    If `work_dir_manage` should the ownership settings be recursively set
    down the tree. You may, or may not desire this
 
-   *Type*: boolean
-   *Default*: true
+   **Type**: boolean
+
+   **Default**: true
 
  * `merge_with_default_config`
    Should the `clm_config` that is passed to the module be merged with
    what the this params class declares as the defaults?
 
-   *Type*: boolean
-   *Default*: true
+   **Type**: boolean
+
+   **Default**: true
 
 
 ## Limitations
