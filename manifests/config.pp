@@ -11,7 +11,63 @@
 # Variables
 # ----------
 #
-# None
+# * `clm_config`
+#   A hash of configuration values that will be put into the config.yml
+#   that clm-server uses. This module creates the configuration file as
+#   /etc/clm-config.yml and this hash is the final merging of the
+#   `clm::params::clm_default_config` and the user supplied
+#   configuration hash if `merge_with_default_config` was set to true
+#   (default) in the base class.
+#
+#   NOTE: if you add an option that exists in the default config and you
+#   are merging then unless you have installed the deeper-merge gem and
+#   have your merge policy configured properly you will have to
+#   completely replicate a block to from the default into your config if
+#   you desire to change an option
+#
+#   Type: hash
+#   Default: see clm::params for the base defaults
+#
+# * `clm_group`
+#   The user group that the clm-server will be running as
+#
+#   Type: string
+#   Default: clm-server
+#
+# * `clm_user`
+#   The user that the clm-server will be running as
+#
+#   Type: string
+#   Default: clm-server
+#
+# * `clm_user_home`
+#   The home directory for clm-server to utilize
+#
+#   Type: absolute path (string)
+#   Default: /opt/clm-server
+#
+# * `java_opts`
+#   The options that will be passed into Java when clm-server is being
+#   started
+#
+#   Type: string
+#   Default: -Xmx1024m -XX:MaxPermSize=128m
+#
+# * `revision`
+#   The two revision string used by Sonatype in their releases
+#
+#   Type: string matching the regex /^\d+$/
+#   Default: 02
+#   NOTE: The default is 02 as the current version of clm-server that is
+#   out at the time of module creation is at revision 02
+#
+# * `version`
+#   The version string used by Sonatype in their releases
+#
+#   Type: string matching the regex /^\d+\.\d+\.\d+$/
+#   Default: 1.16.0
+#   NOTE: The default is 1.16.0 as the current version of clm-server
+#   that is out at the time of module creation is at version 1.16.0
 #
 # Authors
 # -------

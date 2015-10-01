@@ -28,6 +28,9 @@
 #   default) then an option of sonatypeWork *must* exist in the hash as an
 #   absolute path
 #
+#   Type: hash
+#   Default: {}
+#
 # * `clm_group`
 #   The user group that the clm-server will be running as
 #

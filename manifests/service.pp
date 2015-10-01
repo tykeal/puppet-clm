@@ -11,7 +11,23 @@
 # Variables
 # ----------
 #
-# None
+# * `clm_group`
+#   The user group that the clm-server will be running as
+#
+#   Type: string
+#   Default: clm-server
+#
+# * `clm_user`
+#   The user that the clm-server will be running as
+#
+#   Type: string
+#   Default: clm-server
+#
+# * `clm_user_home`
+#   The home directory for clm-server to utilize
+#
+#   Type: absolute path (string)
+#   Default: /opt/clm-server
 #
 # Authors
 # -------
