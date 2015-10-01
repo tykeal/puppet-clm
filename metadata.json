@@ -3,12 +3,46 @@
   "version": "0.1.0",
   "author": "tykeal",
   "summary": "Puppet module for Sonatype CLM",
+  "decription": "Puppet module for Sonatyp CLM",
   "license": "Apache-2.0",
   "source": "https://github.com/tykeal/puppet-clm.git",
   "project_page": "https://github.com/tykeal/puppet-clm",
   "issues_url": "https://github.com/tykeal/puppet-clm/issues",
   "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 1.0.0 <5.0.0"
+    },
+    {
+      "name": "maestrodev/wget",
+      "version_requirement": ">=1.0.0 <2.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "6",
+        "7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">=2.7.20 <5.0.0"
+    }
   ]
 }
 

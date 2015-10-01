@@ -17,65 +17,163 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
-
-## Module Description
-
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+Installs Sonatype CLM Server
 
 ## Setup
 
 ### What clm affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+### Setup Requirements
 
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-### Beginning with clm
-
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+ * `maestrodev/wget`
+ * `puppetlabs/stdlib`
+ * java (recommend installing via `puppetlabs/java`)
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+This module is designed to do automatic hiera lookups. It should "just
+work" without needing to set anything as long as you (a) have java
+installed on the system in some manner and (b) want to install version
+1.16.0-02 of CLM. This module does not open any firewall ports or setup
+any sort of web server proxy front end.
 
+A basic profile for use with CLM would be as follows this will install
+CLM using all the default values from the clm::params class. This will
+end up installing version 1.16.0-02 of CLM (latest as of when this
+module was written)
+
+```puppet
+class profile::clm {
+    # java is required for clm use puppet-java (or something similar)
+    include ::java
+
+    include ::clm
+}
+```
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+ * `clm_config`
+   A hash of configuration values that will be put into the config.yml
+   that clm-server uses. This module creates the configuration file as
+   /etc/clm-config.yml and this hash may (by default) merged into the
+   `clm::params::clm_default_config` hash with this one taking
+   precedence. If `merge_with_default_config` is set to false then only
+   this hash will be used.
+
+   NOTE: if you add an option that exists in the default config and you
+   are merging then unless you have installed the deeper-merge gem and
+   have your merge policy configured properly you will have to
+   completely replicate a block to from the default into your config if
+   you desire to change an option
+
+   NOTE: No validity checking of options is currently handled. The only
+   exeception to this rule is if `work_dir_manage` is set to true (the
+   default) then an option of sonatypeWork *must* exist in the hash as an
+   absolute path
+
+   *Type*: hash
+   *Default*: {}
+
+ * `clm_group`
+   The user group that the clm-server will be running as
+
+   *Type*: string
+   *Default*: clm-server
+
+ * `clm_user`
+   The user that the clm-server will be running as
+
+   *Type*: string
+   *Default*: clm-server
+
+ * `clm_user_home`
+   The home directory for clm-server to utilize
+
+   *Type*: absolute path (string)
+   *Default*: /opt/clm-server
+
+ * `clm_manage_user_home`
+   If the module should be setting managehome on the user object. That
+   is, should the user object be informing puppet to create the home
+   directory if it does not exist and set permissions appropriately
+
+   *Type*: boolean
+   *Default*: true
+
+ * `download_site`
+   The base URL that should be used for downloading clm-server
+
+   *Type*: string
+   *Default*: http://download.sonatype.com/clm/server
+
+ * `java_opts`
+   The options that will be passed into Java when clm-server is being
+   started
+
+   *Type*: string
+   *Default*: -Xmx1024m -XX:MaxPermSize=128m
+
+ * `log_dir`
+   The default log location
+
+   *Type*: absolute path (string)
+   *Default*: /var/log/clm-server
+
+ * `manage_log_dir`
+   Should the module create the log dir
+
+   *Type*: boolean
+   *Default*: true
+
+ * `manage_user`
+   If the module should be creating the user and group.
+
+   *Type*: boolean
+   *Default*: true
+
+ * `revision`
+   The two revision string used by Sonatype in their releases
+
+   *Type*: string matching the regex /^\d+$/
+   *Default*: 02
+   *NOTE*: The default is 02 as the current version of clm-server that is
+   out at the time of module creation is at revision 02
+
+ * `version`
+   The version string used by Sonatype in their releases
+
+   *Type*: string matching the regex /^\d+\.\d+\.\d+$/
+   *Default*: 1.16.0
+   *NOTE*: The default is 1.16.0 as the current version of clm-server
+   that is out at the time of module creation is at version 1.16.0
+
+ * `work_dir_manage`
+   Should the module manage / create the workdir
+
+   *Type*: boolean
+   *Default*: true
+
+ * `work_dir_recurse`
+   If `work_dir_manage` should the ownership settings be recursively set
+   down the tree. You may, or may not desire this
+
+   *Type*: boolean
+   *Default*: true
+
+ * `merge_with_default_config`
+   Should the `clm_config` that is passed to the module be merged with
+   what the this params class declares as the defaults?
+
+   *Type*: boolean
+   *Default*: true
+
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+This module has only been testing RedHat / CentOS 6 & 7
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+To contribute please send a pull request against
+https://github.com/tykeal/puppet-clm.git
 
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
