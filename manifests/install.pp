@@ -107,7 +107,7 @@ class clm::install (
   if ($manage_log_dir) {
     file { 'clm-server-log':
       ensure => directory,
-      target => $log_dir,
+      path   => $log_dir,
       owner  => $clm_user,
       group  => $clm_group,
       mode   => '0700',

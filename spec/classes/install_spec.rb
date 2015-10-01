@@ -87,7 +87,7 @@ describe 'clm::install', :type => :class do
 
     it { should contain_file('clm-server-log').with(
       'ensure' => 'directory',
-      'target' => '/var/log/clm-server',
+      'path'   => '/var/log/clm-server',
       'owner'  => 'foo',
       'group'  => 'foo',
       'mode'   => '0700',
