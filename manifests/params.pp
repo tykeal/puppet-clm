@@ -155,7 +155,7 @@ class clm::params {
         },
         'file'                         => {
           'enabled'                    => true,
-          'currentLogFileName'         => '/var/log/clm-server/request.log',
+          'currentLogFilename'         => '/var/log/clm-server/request.log',
           # lint:ignore:80chars
           'archivedLogFilenamePattern' => '/var/log/clm-server/request-%d.log.gz',
           # lint:endignore
@@ -189,7 +189,7 @@ class clm::params {
     'file'                         => {
       'enabled'                    => true,
       'threshold'                  => 'ALL',
-      'currentLogFileName'         => '/var/log/clm-server/clm-server.log',
+      'currentLogFilename'         => '/var/log/clm-server/clm-server.log',
       # lint:ignore:80chars
       'archivedLogFilenamePattern' => '/var/log/clm-server/clm-server-%d.log.gz',
       'archivedFileCount'          => '5',
