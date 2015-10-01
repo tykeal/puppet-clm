@@ -145,7 +145,7 @@ class clm::params {
   $merge_with_default_config = true
   # DEFAULT CONFIGURATION - defaults from 1.16.0-02
   $clm_default_config = {
-    'sonatypeWork'  => '/srv/sonatype-work/clm-server',
+    'sonatypeWork'  => '/srv/clm-server',
     'http'          => {
       'port'        => '8070',
       'adminPort'   => '8071',
