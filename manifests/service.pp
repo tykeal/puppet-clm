@@ -74,7 +74,8 @@ class clm::service (
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => template($init_template)
+    content => template($init_template),
+    notify  => Service['clm-server'],
   }
 
   service { 'clm-server':

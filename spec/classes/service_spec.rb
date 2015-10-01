@@ -43,6 +43,7 @@ Group=bar
 [Install]
 WantedBy=multi-user.target
 ',
+      'notify' => 'Service[clm-server]',
     ) }
 
     it { should contain_service('clm-server').with(
