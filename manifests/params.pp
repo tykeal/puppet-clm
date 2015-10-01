@@ -177,24 +177,20 @@ class clm::params {
          'org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter' => 'INFO',
         # lint:endignore
       },
+      'console'     => {
+        'enabled'   => true,
+        'threshold' => 'INFO',
+        'logFormat' => "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n",
+      },
+      'file'                         => {
+        'enabled'                    => true,
+        'threshold'                  => 'ALL',
+        'currentLogFilename'         => '/var/log/clm-server/clm-server.log',
+        'archivedLogFilenamePattern' => '/var/log/clm-server/clm-server-%d.log.gz',
+        'archivedFileCount'          => '5',
+        'logFormat'                  => "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n",
+      },
     },
     # lint:endignore
-    'console'     => {
-      'enabled'   => true,
-      'threshold' => 'INFO',
-      # lint:ignore:80chars
-      'logFormat' => "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n",
-      # lint:endignore
-    },
-    'file'                         => {
-      'enabled'                    => true,
-      'threshold'                  => 'ALL',
-      'currentLogFilename'         => '/var/log/clm-server/clm-server.log',
-      # lint:ignore:80chars
-      'archivedLogFilenamePattern' => '/var/log/clm-server/clm-server-%d.log.gz',
-      'archivedFileCount'          => '5',
-      'logFormat'                  => "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n",
-      # lint:endignore
-    },
   }
 }
