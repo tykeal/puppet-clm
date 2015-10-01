@@ -25,7 +25,7 @@ describe 'clm::service', :type => :class do
 
     it { should contain_file('clm-server-init').with(
       'ensure'  => 'file',
-      'target'  => '/usr/lib/systemd/system/clm-server.service',
+      'path'    => '/usr/lib/systemd/system/clm-server.service',
       'owner'   => 'root',
       'group'   => 'root',
       'mode'    => '0644',

@@ -70,7 +70,7 @@ class clm::service (
 
   file { 'clm-server-init':
     ensure  => file,
-    target  => $init_target,
+    path    => $init_target,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
