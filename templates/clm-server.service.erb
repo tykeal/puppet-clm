@@ -6,6 +6,8 @@ After=network.target
 [Service]
 EnvironmentFile=/etc/sysconfig/clm-server
 ExecStart=/usr/bin/java $JAVA_OPTIONS -jar $CLM_JAR server /etc/clm-config.yml
+User=<%= @clm_user %>
+Group=<%= @clm_group %>
 
 [Install]
 WantedBy=multi-user.target

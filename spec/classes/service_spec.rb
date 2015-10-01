@@ -2,7 +2,7 @@ require 'spec_helper'
 describe 'clm::service', :type => :class do
   let (:params) {
     {
-      'clm_group'     => 'foo',
+      'clm_group'     => 'bar',
       'clm_user'      => 'foo',
       'clm_user_home' => '/opt/foo',
     }
@@ -37,6 +37,8 @@ After=network.target
 [Service]
 EnvironmentFile=/etc/sysconfig/clm-server
 ExecStart=/usr/bin/java $JAVA_OPTIONS -jar $CLM_JAR server /etc/clm-config.yml
+User=foo
+Group=bar
 
 [Install]
 WantedBy=multi-user.target
