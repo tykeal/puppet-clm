@@ -47,7 +47,7 @@ describe 'clm', :type => :class do
     }
 
     it { should contain_file('/etc/clm-config.yml').with_content(
-      /sonatypeWork: "\/srv\/clm-server"\nhttp:\n  port: '8080'\n/
+      /sonatypeWork: ["']?\/srv\/clm-server["']?\nhttp:\n  port: '8080'\n/
     ) }
   end
 end
