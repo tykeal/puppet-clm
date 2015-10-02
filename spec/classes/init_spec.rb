@@ -31,6 +31,25 @@ describe 'clm', :type => :class do
     it { should contain_anchor('clm::end').that_requires(
       'Class[clm::service]') }
   end
+
+  # The only time we can verify if clm::config is getting a proper
+  # merged config is from the root class, so we have to do a deep
+  # inspection of the resultant config file
+  context 'with modified clm_config it should produce a proper config file' do
+    let(:params) {
+      {
+        'clm_config' => {
+          'http'     => {
+            'port'   => '8080',
+          },
+        }
+      }
+    }
+
+    it { should contain_file('/etc/clm-config.yml').with_content(
+      /sonatypeWork: "\/srv\/clm-server"\nhttp:\n  port: '8080'\n/
+    ) }
+  end
 end
 
 # vim: sw=2 ts=2 sts=2 et :
