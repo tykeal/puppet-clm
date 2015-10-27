@@ -126,11 +126,19 @@ class clm::install (
   validate_bool($work_dir_recurse)
 
   $full_version = "${version}-${revision}"
-  $clm_archive  = "sonatype-clm-server-${full_version}-bundle.tar.gz"
+
+  # as of 1.17.0 the archive name and jar file have changed
+  if versioncmp($version, '1.17.0') >= 0 {
+    $base_archive = 'nexus-iq-server'
+  } else {
+    $base_archive = 'sonatype-clm-server'
+  }
+
+  $clm_archive  = "${base_archive}-${full_version}-bundle.tar.gz"
   $download_url = "${download_site}/${clm_archive}"
   $dl_file      = "${clm_user_home}/${clm_archive}"
-  $clm_extract  = "${clm_user_home}/sonatype-clm-server-${full_version}"
-  $extract_file = "${clm_extract}/sonatype-clm-server-${full_version}.jar"
+  $clm_extract  = "${clm_user_home}/${base_archive}-${full_version}"
+  $extract_file = "${clm_extract}/${base_archive}-${full_version}.jar"
   $clm_link     = "${clm_user_home}/clm-server"
 
   wget::fetch{ $clm_archive:
@@ -157,6 +165,15 @@ class clm::install (
   file { $clm_link:
     ensure  => link,
     target  => $clm_extract,
+    require => Exec['clm-untar'],
+  }
+
+  file { 'server jar link':
+    ensure  => link,
+    path    => "${clm_extract}/clm_server.jar",
+    target  => "${base_archive}-${full_version}.jar",
+    owner   => $clm_user,
+    group   => $clm_group,
     require => Exec['clm-untar'],
   }
 

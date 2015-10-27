@@ -53,22 +53,6 @@
 #   Type: string
 #   Default: -Xmx1024m -XX:MaxPermSize=128m
 #
-# * `revision`
-#   The two revision string used by Sonatype in their releases
-#
-#   Type: string matching the regex /^\d+$/
-#   Default: 02
-#   NOTE: The default is 02 as the current version of clm-server that is
-#   out at the time of module creation is at revision 02
-#
-# * `version`
-#   The version string used by Sonatype in their releases
-#
-#   Type: string matching the regex /^\d+\.\d+\.\d+$/
-#   Default: 1.16.0
-#   NOTE: The default is 1.16.0 as the current version of clm-server
-#   that is out at the time of module creation is at version 1.16.0
-#
 # Authors
 # -------
 #
@@ -85,8 +69,6 @@ class clm::config (
   $clm_user,
   $clm_user_home,
   $java_opts,
-  $revision,
-  $version,
 ) {
   # since we aren't using assert_private because of not knowing how to
   # test using rspec when it's set we need to be extra paranoid and
@@ -96,8 +78,6 @@ class clm::config (
   validate_string($clm_user)
   validate_absolute_path($clm_user_home)
   validate_string($java_opts)
-  validate_re($revision, '^\d+$')
-  validate_re($version, '^\d+\.\d+\.\d+$')
 
   file { '/etc/clm-config.yml':
     ensure  => file,

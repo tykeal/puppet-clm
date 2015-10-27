@@ -62,6 +62,15 @@ describe 'clm::install', :type => :class do
       'require' => 'Exec[clm-untar]',
     ) }
 
+    it { should contain_file('server jar link').with(
+      'ensure'  => 'link',
+      'path'    => '/opt/foo/sonatype-clm-server-1.1.1-01/clm_server.jar',
+      'target'  => 'sonatype-clm-server-1.1.1-01.jar',
+      'owner'   => 'foo',
+      'group'   => 'foo',
+      'require' => 'Exec[clm-untar]',
+    ) }
+
     it 'should fail if clm_config.sonatypeWork does not exist' do
       params.merge!({'clm_config' => {}})
   
@@ -97,6 +106,30 @@ describe 'clm::install', :type => :class do
       params.merge!({'manage_log_dir' => false})
 
       should_not contain_file('clm-server-log')
+    end
+
+    it 'should handle the rename of clm with version 1.17.0' do
+      params.merge!({'version' => '1.17.0'})
+
+      should contain_file('/opt/foo/clm-server').with(
+        'target' => '/opt/foo/nexus-iq-server-1.17.0-01',
+      )
+
+      should contain_exec('clm-untar').with(
+        'command' => 'tar zxf /opt/foo/nexus-iq-server-1.17.0-01-bundle.tar.gz',
+        'cwd'     => '/opt/foo/nexus-iq-server-1.17.0-01',
+        'creates' => '/opt/foo/nexus-iq-server-1.17.0-01/nexus-iq-server-1.17.0-01.jar',
+        'path'    => [ '/bin', '/usr/bin' ],
+      )
+
+      should contain_file('server jar link').with(
+        'ensure'  => 'link',
+        'path'    => '/opt/foo/nexus-iq-server-1.17.0-01/clm_server.jar',
+        'target'  => 'nexus-iq-server-1.17.0-01.jar',
+        'owner'   => 'foo',
+        'group'   => 'foo',
+        'require' => 'Exec[clm-untar]',
+      )
     end
   end
 end

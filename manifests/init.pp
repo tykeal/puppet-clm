@@ -246,8 +246,6 @@ class clm (
     clm_user      => $clm_user,
     clm_user_home => $clm_user_home,
     java_opts     => $java_opts,
-    revision      => $revision,
-    version       => $version,
   }
 
   class { 'clm::service':

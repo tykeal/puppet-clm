@@ -17,7 +17,7 @@
 
 ## Overview
 
-Installs Sonatype CLM Server
+Installs Sonatype Nexus IQ (formerly CLM) Server
 
 ## Setup
 
@@ -41,6 +41,10 @@ A basic profile for use with CLM would be as follows this will install
 CLM using all the default values from the clm::params class. This will
 end up installing version 1.16.0-02 of CLM (latest as of when this
 module was written)
+
+NOTE: As of version 1.17.0 the server and bundle name have changed from
+Sonatype CLM Server to Sonatype Nexus IQ Server. Currently all options
+and paths (with the exception of the bundle/jar name) are still the same.
 
 ```puppet
 class profile::clm {
