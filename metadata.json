@@ -1,6 +1,6 @@
 {
   "name": "tykeal-clm",
-  "version": "0.1.2",
+  "version": "1.0.0",
   "author": "tykeal",
   "summary": "Puppet module for Sonatype CLM",
   "decription": "Puppet module for Sonatyp CLM",
