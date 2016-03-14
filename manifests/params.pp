@@ -76,6 +76,14 @@
 #   NOTE: The default is 02 as the current version of clm-server that is
 #   out at the time of module creation is at revision 02
 #
+# * `use_revision`
+#   With at least Nexus IQ v1.19.0 (possibly initial release of 1.18.0) the
+#   bundle revision doesn't exist in the upstream file name. This allows us to
+#   flag if the revision should be used or not
+#
+#   Type: boolean
+#   Default: true
+#
 # * `version`
 #   The version string used by Sonatype in their releases
 #
@@ -137,6 +145,7 @@ class clm::params {
 
   # Current version as of the original module creation
   $revision      = '02'
+  $use_revision  = true
   $version       = '1.16.0'
 
   $work_dir_manage  = true

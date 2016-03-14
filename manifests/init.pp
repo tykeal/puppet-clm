@@ -96,6 +96,14 @@
 #   NOTE: The default is 02 as the current version of clm-server that is
 #   out at the time of module creation is at revision 02
 #
+# * `use_revision`
+#   With at least Nexus IQ v1.19.0 (possibly initial release of 1.18.0) the
+#   bundle revision doesn't exist in the upstream file name. This allows us to
+#   flag if the revision should be used or not
+#
+#   Type: boolean
+#   Default: true
+#
 # * `version`
 #   The version string used by Sonatype in their releases
 #
@@ -179,6 +187,7 @@ class clm (
   $manage_user               = $clm::params::manage_user,
   $merge_with_default_config = $clm::params::merge_with_default_config,
   $revision                  = $clm::params::revision,
+  $use_revision              = $clm::params::use_revision,
   $version                   = $clm::params::version,
   $work_dir_manage           = $clm::params::work_dir_manage,
   $work_dir_recurse          = $clm::params::work_dir_recurse,
@@ -195,6 +204,7 @@ class clm (
   validate_bool($manage_user)
   validate_bool($merge_with_default_config)
   validate_re($revision, '^\d+$')
+  validate_bool($use_revision)
   validate_re($version, '^\d+\.\d+\.\d+$')
   validate_bool($work_dir_manage)
   validate_bool($work_dir_recurse)
@@ -235,6 +245,7 @@ class clm (
     log_dir          => $log_dir,
     manage_log_dir   => $manage_log_dir,
     revision         => $revision,
+    use_revision     => $use_revision,
     version          => $version,
     work_dir_manage  => $work_dir_manage,
     work_dir_recurse => $work_dir_recurse,

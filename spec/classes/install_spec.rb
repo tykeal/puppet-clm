@@ -14,6 +14,7 @@ describe 'clm::install', :type => :class do
       'log_dir'          => '/var/log/clm-server',
       'manage_log_dir'   => true,
       'revision'         => '01',
+      'use_revision'     => true,
       'version'          => '1.1.1',
       'work_dir_manage'  => true,
       'work_dir_recurse' => true,
@@ -40,6 +41,12 @@ describe 'clm::install', :type => :class do
       'destination' => '/opt/foo/sonatype-clm-server-1.1.1-01-bundle.tar.gz',
       'before'      => 'Exec[clm-untar]',
     ) }
+
+    it 'should not grab a revisioned bundle if use_revision is false' do
+      params.merge!({'use_revision' => false})
+
+      should contain_wget__fetch('sonatype-clm-server-1.1.1-bundle.tar.gz')
+    end
 
     it { should contain_file('/opt/foo/sonatype-clm-server-1.1.1-01').with(
       'ensure'  => 'directory',
