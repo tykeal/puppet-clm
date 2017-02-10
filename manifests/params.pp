@@ -148,6 +148,12 @@ class clm::params {
   $use_revision  = true
   $version       = '1.16.0'
 
+  $clm_config_file      = '/etc/clm-config.yml'
+  $clm_environment_file = $::osfamily ? {
+    'Debian' => '/etc/default/clm-server',
+    default  => '/etc/sysconfig/clm-server',
+  }
+
   $work_dir_manage  = true
   $work_dir_recurse = true
 

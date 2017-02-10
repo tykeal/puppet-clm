@@ -65,6 +65,8 @@
 #
 class clm::config (
   $clm_config,
+  $clm_config_file,
+  $clm_environment_file,
   $clm_group,
   $clm_user,
   $clm_user_home,
@@ -77,9 +79,11 @@ class clm::config (
   validate_string($clm_group)
   validate_string($clm_user)
   validate_absolute_path($clm_user_home)
+  validate_absolute_path($clm_config_file)
+  validate_absolute_path($clm_environment_file)
   validate_string($java_opts)
 
-  file { '/etc/clm-config.yml':
+  file { $clm_config_file:
     ensure  => file,
     owner   => $clm_user,
     group   => $clm_group,
@@ -87,7 +91,7 @@ class clm::config (
     content => template("${module_name}/config.yml.erb"),
   }
 
-  file { '/etc/sysconfig/clm-server':
+  file { $clm_environment_file:
     ensure  => file,
     owner   => 'root',
     group   => 'root',

@@ -43,6 +43,8 @@ class clm::service (
   $clm_group,
   $clm_user,
   $clm_user_home,
+  $clm_config_file,
+  $clm_environment_file,
 ) {
   # since we aren't using assert_private because of not knowing how to
   # test using rspec when it's set we need to be extra paranoid and
@@ -76,6 +78,10 @@ class clm::service (
           }
         }
       }
+    }
+    'Debian' : {
+      $init_target   = '/etc/systemd/system/clm-server.service'
+      $init_template = "${module_name}/clm-server.service.erb"
     }
     # We default to expecting a systemd.service
     default: {

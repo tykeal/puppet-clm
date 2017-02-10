@@ -4,8 +4,8 @@ Description=Sonatype CLM Server
 After=network.target
 
 [Service]
-EnvironmentFile=/etc/sysconfig/clm-server
-ExecStart=/usr/bin/java $JAVA_OPTIONS -jar $CLM_JAR server /etc/clm-config.yml
+EnvironmentFile=<%= @clm_environment_file %>
+ExecStart=/usr/bin/java $JAVA_OPTIONS -jar $CLM_JAR server <%= @clm_config_file %>
 User=<%= @clm_user %>
 Group=<%= @clm_group %>
 
