@@ -70,6 +70,19 @@
 #   Type: string
 #   Default: -Xmx1024m -XX:MaxPermSize=128m
 #
+# * `clm_config_file`
+#   The clm-server configuration file location.
+#
+#   Type: string
+#   Default: /etc/clm-config.yml
+#
+# * `clm_environment_file`
+#   The environment script file location.
+#
+#   Type: string
+#   Default: /etc/sysconfig/clm-server on RedHat based systems
+#            /etc/default/clm-server on Debian based systems
+#
 # * `log_dir`
 #   The default log location
 #

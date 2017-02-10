@@ -53,6 +53,19 @@
 #   Type: string
 #   Default: -Xmx1024m -XX:MaxPermSize=128m
 #
+# * `clm_config_file`
+#   The clm-server configuration file location.
+#
+#   Type: string
+#   Default: /etc/clm-config.yml
+#
+# * `clm_environment_file`
+#   The environment script file location.
+#
+#   Type: string
+#   Default: /etc/sysconfig/clm-server on RedHat based systems
+#            /etc/default/clm-server on Debian based systems
+#
 # Authors
 # -------
 #
@@ -65,12 +78,12 @@
 #
 class clm::config (
   $clm_config,
-  $clm_config_file,
-  $clm_environment_file,
   $clm_group,
   $clm_user,
   $clm_user_home,
   $java_opts,
+  $clm_config_file,
+  $clm_environment_file,
 ) {
   # since we aren't using assert_private because of not knowing how to
   # test using rspec when it's set we need to be extra paranoid and
