@@ -65,6 +65,8 @@ class clm::service (
   validate_string($clm_group)
   validate_string($clm_user)
   validate_absolute_path($clm_user_home)
+  validate_absolute_path($clm_config_file)
+  validate_absolute_path($clm_environment_file)
 
   # Determine if it should be a systemd.service or an init.d service
   case $::osfamily {

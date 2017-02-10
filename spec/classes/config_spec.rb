@@ -1,5 +1,14 @@
 require 'spec_helper'
 describe 'clm::config', :type => :class do
+  let (:facts) {
+    {
+      'kernel'                 => 'Linux',
+      'osfamily'               => 'RedHat',
+      'operatingsystem'        => 'Fedora',
+      'operatingsystemrelease' => '14',
+    }
+  }
+
   let (:params) {
     {
       'clm_config'     => {
@@ -19,6 +28,8 @@ describe 'clm::config', :type => :class do
       'clm_user'       => 'foo',
       'clm_user_home'  => '/opt/foo',
       'java_opts'      => 'java_args',
+      'clm_config_file'      => '/etc/clm-config.yml',
+      'clm_environment_file' => '/etc/sysconfig/clm-server',
     }
   }
 

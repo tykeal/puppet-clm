@@ -1,10 +1,21 @@
 require 'spec_helper'
 describe 'clm::service', :type => :class do
+  let (:facts) {
+    {
+      'kernel'                 => 'Linux',
+      'osfamily'               => 'RedHat',
+      'operatingsystem'        => 'Fedora',
+      'operatingsystemrelease' => '14',
+    }
+  }
+
   let (:params) {
     {
-      'clm_group'     => 'bar',
-      'clm_user'      => 'foo',
-      'clm_user_home' => '/opt/foo',
+      'clm_group'            => 'bar',
+      'clm_user'             => 'foo',
+      'clm_user_home'        => '/opt/foo',
+      'clm_config_file'      => '/etc/clm-config.yml',
+      'clm_environment_file' => '/etc/sysconfig/clm-server',
     }
   }
 
