@@ -2,7 +2,6 @@ require 'spec_helper'
 describe 'clm::service', :type => :class do
   let (:facts) {
     {
-      'kernel'                 => 'Linux',
       'osfamily'               => 'RedHat',
       'operatingsystem'        => 'Fedora',
       'operatingsystemrelease' => '14',
@@ -31,12 +30,52 @@ describe 'clm::service', :type => :class do
     end
   end
 
-  context 'with valid test params' do
+  context 'with valid test params on RedHat' do
     it { should contain_class('clm::service') }
 
     it { should contain_file('clm-server-init').with(
       'ensure'  => 'file',
       'path'    => '/usr/lib/systemd/system/clm-server.service',
+      'owner'   => 'root',
+      'group'   => 'root',
+      'mode'    => '0644',
+      'content' => '# WARNING THIS FILE IS MANAGED BY PUPPET
+[Unit]
+Description=Sonatype CLM Server
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/sysconfig/clm-server
+ExecStart=/usr/bin/java $JAVA_OPTIONS -jar $CLM_JAR server /etc/clm-config.yml
+User=foo
+Group=bar
+
+[Install]
+WantedBy=multi-user.target
+',
+      'notify' => 'Service[clm-server]',
+    ) }
+
+    it { should contain_service('clm-server').with(
+      'ensure'  => 'running',
+      'enable'  => true,
+      'require' => 'File[clm-server-init]',
+    ) }
+  end
+
+  context 'with valid test params on Debian' do
+    let (:facts) {
+      {
+        'kernel'                 => 'Linux',
+        'osfamily'               => 'Debian',
+      }
+    }
+  
+    it { should contain_class('clm::service') }
+
+    it { should contain_file('clm-server-init').with(
+      'ensure'  => 'file',
+      'path'    => '/etc/systemd/system/clm-server.service',
       'owner'   => 'root',
       'group'   => 'root',
       'mode'    => '0644',

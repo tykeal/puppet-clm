@@ -1,14 +1,5 @@
 require 'spec_helper'
 describe 'clm::config', :type => :class do
-  let (:facts) {
-    {
-      'kernel'                 => 'Linux',
-      'osfamily'               => 'RedHat',
-      'operatingsystem'        => 'Fedora',
-      'operatingsystemrelease' => '14',
-    }
-  }
-
   let (:params) {
     {
       'clm_config'     => {
