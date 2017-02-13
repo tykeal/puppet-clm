@@ -191,7 +191,10 @@ class profile::clm {
 
 ## Limitations
 
-This module has only been testing RedHat / CentOS 6 & 7
+This module has only been tested on,
+- RedHat / CentOS 6 & 7
+- Ubuntu 16.04 (xenial)
+- Debian 8 (jessie)
 
 ## Development
 

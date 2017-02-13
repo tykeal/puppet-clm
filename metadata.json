@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "author": "tykeal",
   "summary": "Puppet module for Sonatype CLM",
-  "decription": "Puppet module for Sonatyp CLM",
   "license": "Apache-2.0",
   "source": "https://github.com/tykeal/puppet-clm.git",
   "project_page": "https://github.com/tykeal/puppet-clm",
@@ -31,6 +30,18 @@
       "operatingsystemrelease": [
         "6",
         "7"
+      ]
+    },
+    {
+      "operatingsystem": "Debian",
+      "operatingsystemrelease": [
+        "8"
+      ]
+    },
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "16.04"
       ]
     }
   ],
