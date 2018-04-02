@@ -1,5 +1,13 @@
 require 'spec_helper'
 describe 'clm', :type => :class do
+  let (:facts) {
+    {
+      'kernel'                 => 'Linux',
+      'osfamily'               => 'RedHat',
+      'operatingsystem'        => 'Fedora',
+      'operatingsystemrelease' => '14',
+    }
+  }
 
   context 'with defaults for all parameters' do
     it { should contain_class('clm') }

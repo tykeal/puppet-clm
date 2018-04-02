@@ -1,5 +1,10 @@
 require 'spec_helper'
 describe 'clm::params', :type => :class do
+  let (:facts) {
+    {
+      'osfamily'               => 'RedHat',
+    }
+  }
 
   context 'with defaults for all parameters' do
     it { should contain_class('clm::params') }

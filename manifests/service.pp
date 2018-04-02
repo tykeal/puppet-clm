@@ -29,6 +29,19 @@
 #   Type: absolute path (string)
 #   Default: /opt/clm-server
 #
+# * `clm_config_file`
+#   The clm-server configuration file location.
+#
+#   Type: string
+#   Default: /etc/clm-config.yml
+#
+# * `clm_environment_file`
+#   The environment script file location.
+#
+#   Type: string
+#   Default: /etc/sysconfig/clm-server on RedHat based systems
+#            /etc/default/clm-server on Debian based systems
+#
 # Authors
 # -------
 #
@@ -43,6 +56,8 @@ class clm::service (
   $clm_group,
   $clm_user,
   $clm_user_home,
+  $clm_config_file,
+  $clm_environment_file,
 ) {
   # since we aren't using assert_private because of not knowing how to
   # test using rspec when it's set we need to be extra paranoid and
@@ -50,6 +65,8 @@ class clm::service (
   validate_string($clm_group)
   validate_string($clm_user)
   validate_absolute_path($clm_user_home)
+  validate_absolute_path($clm_config_file)
+  validate_absolute_path($clm_environment_file)
 
   # Determine if it should be a systemd.service or an init.d service
   case $::osfamily {
@@ -76,6 +93,10 @@ class clm::service (
           }
         }
       }
+    }
+    'Debian' : {
+      $init_target   = '/etc/systemd/system/clm-server.service'
+      $init_template = "${module_name}/clm-server.service.erb"
     }
     # We default to expecting a systemd.service
     default: {

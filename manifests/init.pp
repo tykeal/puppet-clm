@@ -70,6 +70,19 @@
 #   Type: string
 #   Default: -Xmx1024m -XX:MaxPermSize=128m
 #
+# * `clm_config_file`
+#   The clm-server configuration file location.
+#
+#   Type: string
+#   Default: /etc/clm-config.yml
+#
+# * `clm_environment_file`
+#   The environment script file location.
+#
+#   Type: string
+#   Default: /etc/sysconfig/clm-server on RedHat based systems
+#            /etc/default/clm-server on Debian based systems
+#
 # * `log_dir`
 #   The default log location
 #
@@ -182,6 +195,8 @@ class clm (
   $clm_manage_user_home      = $clm::params::clm_manage_user_home,
   $download_site             = $clm::params::download_site,
   $java_opts                 = $clm::params::java_opts,
+  $clm_config_file           = $clm::params::clm_config_file,
+  $clm_environment_file      = $clm::params::clm_environment_file,
   $log_dir                   = $clm::params::log_dir,
   $manage_log_dir            = $clm::params::manage_log_dir,
   $manage_user               = $clm::params::manage_user,
@@ -252,17 +267,21 @@ class clm (
   }
 
   class { 'clm::config':
-    clm_config    => $real_config,
-    clm_group     => $clm_group,
-    clm_user      => $clm_user,
-    clm_user_home => $clm_user_home,
-    java_opts     => $java_opts,
+    clm_config           => $real_config,
+    clm_group            => $clm_group,
+    clm_user             => $clm_user,
+    clm_user_home        => $clm_user_home,
+    java_opts            => $java_opts,
+    clm_config_file      => $clm_config_file,
+    clm_environment_file => $clm_environment_file,
   }
 
   class { 'clm::service':
-    clm_group     => $clm_group,
-    clm_user      => $clm_user,
-    clm_user_home => $clm_user_home,
+    clm_group            => $clm_group,
+    clm_user             => $clm_user,
+    clm_user_home        => $clm_user_home,
+    clm_config_file      => $clm_config_file,
+    clm_environment_file => $clm_environment_file,
   }
 
   Anchor['clm::begin'] ->
