@@ -284,9 +284,9 @@ class clm (
     clm_environment_file => $clm_environment_file,
   }
 
-  Anchor['clm::begin'] ->
-    Class['clm::install'] ->
-    Class['clm::config'] ~>
-    Class['clm::service'] ->
-  Anchor['clm::end']
+  Anchor['clm::begin']
+    -> Class['clm::install']
+    -> Class['clm::config']
+    ~> Class['clm::service']
+  -> Anchor['clm::end']
 }
