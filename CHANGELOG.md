@@ -1,3 +1,8 @@
+## 2018-04-17 - v1.1.0
+### Summary
+
+* Support for Debian added thanks to Venushka Perera
+
 ## 2016-03-14 - v1.0.0
 ### Summary
 
