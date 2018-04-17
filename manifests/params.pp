@@ -161,39 +161,46 @@ class clm::params {
   $manage_log_dir       = true
   $manage_user          = true
 
-  # Current version as of the original module creation
-  $revision      = '02'
+  # Base supported version
+  $revision      = '01'
   $use_revision  = true
-  $version       = '1.16.0'
+  $version       = '1.43.0'
 
   $work_dir_manage  = true
   $work_dir_recurse = true
 
   $merge_with_default_config = true
-  # DEFAULT CONFIGURATION - defaults from 1.16.0-02
+  # DEFAULT CONFIGURATION - defaults from 1.43.0-01
   $clm_default_config = {
-    'sonatypeWork'  => '/srv/clm-server',
-    'http'          => {
-      'port'        => '8070',
-      'adminPort'   => '8071',
-      'requestLog'  => {
-        'console'   => {
-          'enabled' => false,
+    'sonatypeWork'     => '/srv/clm-server',
+    'server'           => {
+      'applicationConnectors' => [
+        {
+          'type' => 'http',
+          'port' => '8070',
         },
-        'file'                         => {
-          'enabled'                    => true,
-          'currentLogFilename'         => '/var/log/clm-server/request.log',
-          # lint:ignore:80chars
-          'archivedLogFilenamePattern' => '/var/log/clm-server/request-%d.log.gz',
-          # lint:endignore
-          'archivedFileCount'          => '5',
+      ],
+      'adminConnectors'       => [
+        {
+          'type' => 'http',
+          'port' => '8071',
         },
+      ],
+      'requestLog'            => {
+        'appenders' => [
+          {
+            'type'                       => 'file',
+            'currentLogFilename'         => '/var/log/clm-server/request.log',
+            'archivedLogFilenamePattern' => '/var/log/clm-server/request-%d.log.gz',
+            'archivedFileCount'          => '50',
+          },
+        ],
       },
     },
     # lint:ignore:80chars
-    'logging'                                                             => {
-      'level'                                                             => 'DEBUG',
-      'loggers'                                                           => {
+    'logging'          => {
+      'level'     => 'DEBUG',
+      'loggers'   => {
         'com.sonatype.insight.scan'                                       => 'INFO',
         'eu.medsea.mimeutil.MimeUtil2'                                    => 'INFO',
         'org.apache.http'                                                 => 'INFO',
@@ -202,20 +209,23 @@ class clm::params {
         'org.eclipse.jetty'                                               => 'INFO',
         'org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter' => 'INFO',
       },
-      'console'     => {
-        'enabled'   => true,
-        'threshold' => 'INFO',
-        'logFormat' => "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n",
-      },
-      'file'                         => {
-        'enabled'                    => true,
-        'threshold'                  => 'ALL',
-        'currentLogFilename'         => '/var/log/clm-server/clm-server.log',
-        'archivedLogFilenamePattern' => '/var/log/clm-server/clm-server-%d.log.gz',
-        'archivedFileCount'          => '5',
-        'logFormat'                  => "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n",
-      },
+      'appenders' => [
+        {
+          'type'      => 'console',
+          'threshold' => 'INFO',
+          'logFormat' => "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %X{username} %logger - %msg%n"
+        },
+        {
+          'type'                       => 'file',
+          'threshold'                  => 'ALL',
+          'logFormat'                  => "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %X{username} %logger - %msg%n",
+          'currentLogFilename'         => '/var/log/clm-server/clm-server.log',
+          'archivedLogFilenamePattern' => '/var/log/clm-server/clm-server-%d.log.gz',
+          'archivedFileCount'          => '50',
+        },
+      ],
     },
+    'createSampleData' => true,
     # lint:endignore
   }
 }
