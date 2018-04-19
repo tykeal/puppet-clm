@@ -40,6 +40,52 @@ describe 'clm', :type => :class do
       'Class[clm::service]') }
   end
 
+  context 'default config file' do
+    it { should contain_file('/etc/clm-config.yml').with_content(
+"# WARNING THIS FILE IS MANAGED BY PUPPET
+---
+sonatypeWork: /srv/clm-server
+server:
+  applicationConnectors:
+  - type: http
+    port: '8070'
+  adminConnectors:
+  - type: http
+    port: '8071'
+  requestLog:
+    appenders:
+    - type: file
+      currentLogFilename: /var/log/clm-server/request.log
+      archivedLogFilenamePattern: /var/log/clm-server/request-%d.log.gz
+      archivedFileCount: '50'
+logging:
+  level: DEBUG
+  loggers:
+    com.sonatype.insight.scan: INFO
+    eu.medsea.mimeutil.MimeUtil2: INFO
+    org.apache.http: INFO
+    org.apache.http.wire: ERROR
+    org.eclipse.birt.report.engine.layout.pdf.font.FontConfigReader: WARN
+    org.eclipse.jetty: INFO
+    org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter: INFO
+  appenders:
+  - type: console
+    threshold: INFO
+    logFormat: '%d{''yyyy-MM-dd HH:mm:ss,SSSZ''} %level [%thread] %X{username} %logger
+      - %msg%n'
+  - type: file
+    threshold: ALL
+    logFormat: '%d{''yyyy-MM-dd HH:mm:ss,SSSZ''} %level [%thread] %X{username} %logger
+      - %msg%n'
+    currentLogFilename: /var/log/clm-server/clm-server.log
+    archivedLogFilenamePattern: /var/log/clm-server/clm-server-%d.log.gz
+    archivedFileCount: '50'
+createSampleData: true
+
+"
+    ) }
+  end
+
   # The only time we can verify if clm::config is getting a proper
   # merged config is from the root class, so we have to do a deep
   # inspection of the resultant config file
@@ -55,7 +101,7 @@ describe 'clm', :type => :class do
     }
 
     it { should contain_file('/etc/clm-config.yml').with_content(
-      /sonatypeWork: ["']?\/srv\/clm-server["']?\nhttp:\n  port: '8080'\n/
+      /http:\n  port: '8080'\n/
     ) }
   end
 end
