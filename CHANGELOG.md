@@ -1,3 +1,57 @@
+## 2018-04-19 - v2.0.0
+### Summary
+
+* Upgrade base supported version to 1.41.0-01
+
+* Please see the CLM [upgrade
+  notes](https://help.sonatype.com/iqserver/iq-server-installation/upgrading-the-iq-server/upgrading-the-iq-server-to-version-1.45)
+  for moving to 1.45.0 in particular, you should move to 1.44.0 first, perform
+  the requested manual operations, then move to 1.45.0 and add the `clm_config`
+  entry to allow the upgrade (it can be removed after the upgrade)
+
+* Nexus IQ <1.41.0 is still technically supported. To do so you must fully
+  manage the `clm_config` stanza and also set `merge_with_default_config` to
+  false. For standard defaults of 1.16.0-02 - 1.40.0 use the following hiera
+  configuration:
+
+  ```
+  clm::merge_with_default_config: false
+  clm::clm_config:
+    sonatypeWork: "/srv/clm-server"
+    http:
+      port: '8070'
+      adminPort: '8071'
+      requestLog:
+        console:
+          enabled: false
+        file:
+          enabled: true
+          currentLogFilename: "/var/log/clm-server/request.log"
+          archivedLogFilenamePattern: "/var/log/clm-server/request-%d.log.gz"
+          archivedFileCount: '5'
+    logging:
+      level: DEBUG
+      loggers:
+        com.sonatype.insight.scan: INFO
+        eu.medsea.mimeutil.MimeUtil2: INFO
+        org.apache.http: INFO
+        org.apache.http.wire: ERROR
+        org.eclipse.birt.report.engine.layout.pdf.font.FontConfigReader: WARN
+        org.eclipse.jetty: INFO
+        org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter: INFO
+      console:
+        enabled: true
+        threshold: INFO
+        logFormat: "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n"
+      file:
+        enabled: true
+        threshold: ALL
+        currentLogFilename: "/var/log/clm-server/clm-server.log"
+        archivedLogFilenamePattern: "/var/log/clm-server/clm-server-%d.log.gz"
+        archivedFileCount: '5'
+        logFormat: "%d{'yyyy-MM-dd HH:mm:ss,SSSZ'} %level [%thread] %logger - %msg%n"
+  ```
+
 ## 2018-04-17 - v1.1.0
 ### Summary
 
